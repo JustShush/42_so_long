@@ -6,35 +6,43 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:15:41 by dimarque          #+#    #+#             */
-/*   Updated: 2022/12/28 16:17:48 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/08/04 11:38:52 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*ok(char *line, char buffer)
+{
+	char	*temp;
+	int		i;
+
+	i = 0;
+	temp = malloc(sizeof(char) * (ft_strlen2(line) + 2));
+	while (line && line[i])
+	{
+		temp[i] = line[i];
+		i++;
+	}
+	temp[i++] = buffer;
+	temp[i] = '\0';
+	//line = temp;
+	free(line);
+	return (temp);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer;
 	char		*line;
-	int			i;
-	int			j;
 
 	line = NULL;
 	if (read(fd, NULL, 0) < 0)
-		return (ctrl_l(buffer));
-	while (buffer[0] || read(fd, buffer, BUFFER_SIZE))
+		return (ctrl_l(&buffer));
+	while (read(fd, &buffer, 1))
 	{
-		line = ft_strjoin(line, buffer);
-		i = 0;
-		j = -1;
-		while (buffer[i])
-		{
-			if (j != -1)
-				buffer[j++] = buffer[i];
-			if (buffer[i] == '\n' && j == -1)
-				j = 0;
-			buffer[i++] = 0;
-		}
+		//printf("%c\n", buffer);
+		line = ok(line, buffer);
 		if (line[ft_strlen(line) - 1] == '\n')
 			break ;
 	}

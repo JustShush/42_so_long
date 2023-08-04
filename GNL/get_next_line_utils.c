@@ -6,13 +6,13 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:32:21 by dimarque          #+#    #+#             */
-/*   Updated: 2023/07/18 15:58:38 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:53:46 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/* size_t	ft_strlen(char *str)
+size_t	ft_strlen2(char *str)
 {
 	size_t	i;
 
@@ -24,7 +24,7 @@
 	if (str[i] == '\n')
 		i++;
 	return (i);
-} */
+}
 
 char	*ctrl_l(char *buffer)
 {

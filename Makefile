@@ -3,12 +3,15 @@
 NAME = so_long
 
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 # -fsanitize=address
 
 SRC =	main.c	\
 		lib.c	\
+		lib1.c	\
+		map_check.c	\
+		start_wdw.c	\
 		utils.c	\
 
 GNL_SRC =	get_next_line_utils.c	\
@@ -17,6 +20,7 @@ GNL_SRC =	get_next_line_utils.c	\
 OBJ_DIR = obj
 SRCS = $(addprefix src/, $(SRC))
 OBJS = $(patsubst src/%, $(OBJ_DIR)/%, $(SRCS:%.c=%.o))
+GNLS = $(addprefix GNL/, $(GNL_SRC))
 
 # Reset
 Color_Off='\033[0m'       # Text Reset
@@ -99,7 +103,7 @@ HOWTO = @echo ${IRed}"To run the program do: ./${NAME} map1"${Color_Off}
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -I ../mlx_linux $(SRCS) $(addprefix GNL/,$(GNL_SRC)) -L ../mlx_linux -lmlx -lXext -lX11 -o $(NAME)
+	@$(CC) $(CFLAGS) -I ../mlx_linux $(SRCS) $(GNLS) -L ../mlx_linux -lmlx -lXext -lX11 -o $(NAME)
 	$(MSG1)
 	${HOWTO}
 

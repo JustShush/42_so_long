@@ -1,34 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   lib1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/28 13:45:51 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/03 16:52:19 by dimarque         ###   ########.fr       */
+/*   Created: 2023/07/20 18:21:16 by dimarque          #+#    #+#             */
+/*   Updated: 2023/08/04 11:39:01 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../header.h"
 
-# include <fcntl.h> // O_RDONLY
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+int	ft_strcmp(char *s1, char *s2)
+{
+	unsigned int	i;
+	unsigned char	a;
+	unsigned char	b;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
+	i = 0;
+	a = s1[i];
+	b = s2[i];
+	while (s1[i] != '\0' && (s1[i] == s2[i]))
+	{
+		i++;
+		a = s1[i];
+		b = s2[i];
+	}
+	return (a - b);
+}
 
-char	*get_next_line(int fd);
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	i;
 
-size_t	ft_strlen(char *str);
-size_t	ft_strlen2(char *str);
-
-char	*ctrl_l(char *buffer);
-
-char	*ft_strjoin(char *s1, char *s2);
-
-#endif
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
