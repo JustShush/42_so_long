@@ -6,20 +6,15 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 13:07:31 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/04 15:29:26 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:35:39 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-// gets the correct map
-int	choose_map(char *map)
+int	fd_map(char *map)
 {
-	if (ft_strcmp(map, "map1") == 0)
-		return (open("./maps/map1.ber", O_RDONLY));
-	if (ft_strcmp(map, "map2") == 0)
-		return (open("./maps/map2.ber", O_RDONLY));
-	return (0);
+	return(open(map, O_RDONLY));
 }
 
 void	pec_ifs(t_game *game)
@@ -62,11 +57,13 @@ int	check_pec(t_game *game)
 }
 
 // get map height and width (each block is 64 pixels)
-char	**get_map(int fd, t_game *game, char *argv)
+int	get_map(t_game *game)
 {
 	char	buf;
+	int fd;
 
-	if (!fd)
+	fd = fd_map(game->path);
+	if (!game->path)
 		ft_error(3, __FILE__);
 	buf = '\0';
 	while (read(fd, &buf, 1))
@@ -79,19 +76,17 @@ char	**get_map(int fd, t_game *game, char *argv)
 	if (!game->matriz)
 		ft_error(0, __FILE__);
 	game->i = 0;
-	fd = choose_map(argv);
+	fd = fd_map(game->path);
 	while (game->i < game->height)
 	{
 		game->matriz[game->i] = get_next_line(fd);
 		game->i++;
-		//printf("%s", game->matriz[game->height]);
 	}
-	game->width = ft_strlen(game->matriz[0]); // first line of the map
-	//printf("height: %d\nwidth: %d", game->height, game->width);
+	close(fd);
+	game->width = (ft_strlen(game->matriz[0]) - 1);
 	if (check_pec(game))
 	{
-		return(game->matriz);
+		return(1);
 	}
-	
 	return (0);
 }

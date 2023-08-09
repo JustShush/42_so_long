@@ -1,53 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.c                                              :+:      :+:    :+:   */
+/*   ft_print_ptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 11:08:42 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 14:02:22 by dimarque         ###   ########.fr       */
+/*   Created: 2022/12/01 13:31:06 by dimarque          #+#    #+#             */
+/*   Updated: 2023/08/08 15:23:45 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "libft.h"
 
-/* size_t	ft_strlen(const char *str)
+int	ft_print_ptr(unsigned long long nbr, char *type)
 {
-	size_t	i;
+	int					i;
+	unsigned long long	j;
 
 	i = 0;
-	if(!str)
-		ft_error(0, __FILE__);
-	while(str)
-		i++;
-	return (i);
-} */
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
-	{
-		while (*s)
-		{
-			ft_putchar_fd(*s++, fd);
-		}
-	}
-}
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *s)
-{
-	if (s)
-		while (*s)
-			ft_putchar(*s++);
+	j = 0;
+	if (nbr == 0)
+		return (write(1, "(nil)", 5));
+	i += write(1, "0x", 2);
+	while (type[j])
+		j++;
+	if (nbr >= j)
+		i += ft_base((nbr / j), type);
+	return (i + ft_printchar(type[nbr % j]));
 }

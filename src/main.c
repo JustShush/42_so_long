@@ -6,115 +6,117 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 10:59:19 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/04 15:19:27 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:27:58 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-int	keydown(int keycode, t_game *game)
+int	check_rectangular(t_game *game) // this gives a bunch of memory errors idk how to fix it(need to look more at it)
 {
-	if (keycode == 65307)
-		close_game(game);
-	/* else if (keycode == 119 || keycode == 65362)
-		ft_move_player_y(game, -1);
-	else if (keycode == 100 || keycode == 65363)
-		ft_move_player_x(game, 1);
-	else if (keycode == 115 || keycode == 65364)
-		ft_move_player_y(game, 1);
-	else if (keycode == 97 || keycode == 65361)
-		ft_move_player_x(game, -1); */
-	return (0);
-}
+	int len;
+	int i;
+	int temp;
 
-int	print_img(t_game *game)
-{
-	if (game->matriz[game->i][game->j] == 'E')
+	i = 0;
+	temp = 0;
+	len = ft_strlen(game->matriz[0]);
+	while (game->matriz[i])
 	{
-		mlx_put_image_to_window(game->mlx, game->wdw, game->img.barco, (game->j * 64), (game->i * 64));
-		return (1);
-	}
-	else {
-		mlx_put_image_to_window(game->mlx, game->wdw, game->img.chao, (game->j * 64), (game->i * 64));
-		return (1);
+		temp = ft_strlen(game->matriz[i]);
+		if (i == game->height - 1)
+			temp++;
+		//printf("temp: %d..%d, game->matriz[%d]: %s\n", temp, len, i, game->matriz[i]);
+		if (temp > len || temp < len)
+			return (1);
+		i++;
 	}
 	return (0);
 }
 
-int	render(t_game *game)
+int	check_walls(t_game *game)
 {
-	game->i = 0;
-	while (game->i < game->height)
+	int i;
+	int last;
+
+	i = 0;
+	while (game->matriz[i])
 	{
-		game->j = 0;
-		while (game->j < game->width)
+		last = ft_strlen(game->matriz[i]);
+		if (game->matriz[i][0] != '1' && game->matriz[i][last] != '1')
 		{
-			if (print_img(game) != 1)
-				ft_error(0, __FILE__);
-			game->j++;
+			printf("wall error");
+			return (1);
 		}
-		game->i++;
+		i++;
 	}
-	mlx_put_image_to_window(game->mlx, game->wdw, game->img.pastel, 0, 0);
 	return (0);
 }
 
-void	open_images(t_game *game)
+void	free_matriz(t_game *game)
 {
-	int		pixel;
+	int	y;
+
+	y = 0;
+	while (game->matriz && game->matriz[y])
+	{
+		free(game->matriz[y]);
+		y++;
+	}
+	free(game->matriz);
+	game->matriz = NULL;
+}
+
+void	map_vfy(t_game *game)
+{
+	//printf("check_rec: %d", check_rectangular(game));
+	if(check_rectangular(game) || check_walls(game))
+	{
+		free_matriz(game);
+		close_game(game);
+		ft_error(4, "Invalid map!\nPlease check if the map contents are correct.(ractangular, no extra letters or numbers)");
+	}
+	//return (0);
+}
+
+int	close_x(t_game *game)
+{
+	close_game(game);
+	return (0);
+}
+
+char	*vfy_path(char *argv)
+{
 	char	*path;
-	char	*path1;
-	char	*path2;
-	char	*path3;
-	char	*path4;
+	int len;
 
-	pixel = 64;
-	path = "images/pastel-nata.xpm";
-	path1 = "images/azuleijo.xpm";
-	path2 = "images/calcada.xpm";
-	path3 = "images/ze.xpm";
-	path4 = "images/barco.xpm";
-	game->img.pastel = mlx_xpm_file_to_image(game->mlx, path, &pixel, &pixel);
-	game->img.parede = mlx_xpm_file_to_image(game->mlx, path1, &pixel, &pixel);
-	game->img.chao = mlx_xpm_file_to_image(game->mlx, path2, &pixel, &pixel);
-	game->img.zeze = mlx_xpm_file_to_image(game->mlx, path3, &pixel, &pixel);
-	game->img.barco = mlx_xpm_file_to_image(game->mlx, path4, &pixel, &pixel);
-}
-
-void	destroy_images(t_game *game)
-{
-	mlx_destroy_image(game->mlx, game->img.pastel);
-}
-
-void	close_game(t_game *game)
-{
-	destroy_images(game);
-	mlx_destroy_window(game->mlx, game->wdw);
+	len = ft_strlen(argv);
+	if (len >= 4 && ft_strcmp(argv + len - 4, ".ber") == 0)
+	{
+		path = ft_strdup(argv);
+		return (path);
+	}
+	return (NULL);
 }
 
 int	main(int argc, char *argv[])
 {
-	int		fd;
 	t_game	game;
 
-	(void)argv;
 	if (argc != 2)
 		ft_error(1, NULL);
-	if (ft_strlen(argv[1]) != 4)
-		ft_error(3, __FILE__);
-	fd = choose_map(argv[1]);
-	//printf("%d", fd);
+	game.path = vfy_path(argv[1]);
 	vars_init(&game);
-	game.matriz = get_map(fd, &game, argv[1]);
-	//printf("%c\n", argv[1][3]);
+	if (get_map(&game))
+		ft_error(0, __FILE__);
+	// check if map is OK
+	map_vfy(&game);
 	if (open_wdw(&game) != 1)
 		ft_error(0, __FILE__);
-	mlx_hook(game.wdw, 2, 1L << 0, keydown, &game);
 	open_images(&game);
+	mlx_hook(game.wdw, 2, 1L << 0, p_movement, &game);
 	mlx_loop_hook(game.mlx, render, &game);
+	mlx_hook(game.wdw, 17, 0, &close_x, &game);
 	mlx_loop(game.mlx);
-	close(fd);
 }
-// to get the correct wdw size i can do height*64(5*64) 
-// meaning the map has 5 blocks of height * 64 cuz one block is 64 pixels
 // ./so_long map1

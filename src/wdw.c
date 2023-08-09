@@ -1,53 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.c                                              :+:      :+:    :+:   */
+/*   wdw.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 11:08:42 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 14:02:22 by dimarque         ###   ########.fr       */
+/*   Created: 2023/08/03 13:10:25 by dimarque          #+#    #+#             */
+/*   Updated: 2023/08/08 12:41:44 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-/* size_t	ft_strlen(const char *str)
+int	open_wdw(t_game *game)
 {
-	size_t	i;
-
-	i = 0;
-	if(!str)
-		ft_error(0, __FILE__);
-	while(str)
-		i++;
-	return (i);
-} */
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
+	game->mlx = mlx_init();
+	if (!(game->mlx))
+		return (0);
+	game->wdw = mlx_new_window(game->mlx, (game->width * 64), (game->height * 64), "so_long!");
+	if (!(game->wdw))
 	{
-		while (*s)
-		{
-			ft_putchar_fd(*s++, fd);
-		}
+		free (game->mlx);
+		return (0);
 	}
+	game->pp_x = (game->ploc_x * 64);
+	game->pp_y = (game->ploc_y * 64);
+	return (1);
 }
 
-void	ft_putchar(char c)
+void	close_game(t_game *game)
 {
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *s)
-{
-	if (s)
-		while (*s)
-			ft_putchar(*s++);
+	destroy_images(game);
+	mlx_destroy_window(game->mlx, game->wdw);
+	exit(0);
 }

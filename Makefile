@@ -8,19 +8,20 @@ CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 # -fsanitize=address
 
 SRC =	main.c	\
+		img.c	\
 		lib.c	\
 		lib1.c	\
 		map_check.c	\
-		start_wdw.c	\
+		movements.c	\
+		wdw.c	\
 		utils.c	\
 
-GNL_SRC =	get_next_line_utils.c	\
-			get_next_line.c	\
+libdir = libft
+LIBFT = $(libdir)/libft.a
 
 OBJ_DIR = obj
 SRCS = $(addprefix src/, $(SRC))
 OBJS = $(patsubst src/%, $(OBJ_DIR)/%, $(SRCS:%.c=%.o))
-GNLS = $(addprefix GNL/, $(GNL_SRC))
 
 # Reset
 Color_Off='\033[0m'       # Text Reset
@@ -79,7 +80,7 @@ IWhite='\033[0;97m'       # White
 BIBlack='\033[1;90m'      # Black
 BIRed='\033[1;91m'        # Red
 BIGreen='\033[1;92m'      # Green
-BIYellow='\033[1;93m'     # Yellow
+BIYellow='\033[ft_printf1;93m'     # Yellow
 BIBlue='\033[1;94m'       # Blue
 BIPurple='\033[1;95m'     # Purple
 BICyan='\033[1;96m'       # Cyan
@@ -102,8 +103,11 @@ HOWTO = @echo ${IRed}"To run the program do: ./${NAME} map1"${Color_Off}
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -I ../mlx_linux $(SRCS) $(GNLS) -L ../mlx_linux -lmlx -lXext -lX11 -o $(NAME)
+$(LIBFT):
+	@make -s -C $(libdir)
+
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) -I ../mlx_linux $(SRCS) $(LIBFT) -L ../mlx_linux -lmlx -lXext -lX11 -o $(NAME)
 	$(MSG1)
 	${HOWTO}
 
@@ -112,10 +116,16 @@ $(OBJ_DIR)/%.o: $(SRCS)
 		@$(CC) $(CFLAGS) -o $@ -c $<
 clean:
 	@/bin/rm -rf $(OBJ_DIR)
+	@make clean --no-print-directory -C $(libdir)
 	$(MSG2)
 
 fclean: clean
-	@/bin/rm -rf $(NAME) ${OBJ_DIR}
+	@/bin/rm -rf $(NAME) ${OBJ_DIR} $(LIBFT)
 	$(MSG3)
+
+map1:
+	@./so_long ./maps/map1.ber
+map2:
+	@./so_long ./maps/map2.ber
 
 re: fclean all

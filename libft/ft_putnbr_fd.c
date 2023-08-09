@@ -1,53 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.c                                              :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 11:08:42 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 14:02:22 by dimarque         ###   ########.fr       */
+/*   Created: 2022/11/11 17:34:51 by dimarque          #+#    #+#             */
+/*   Updated: 2022/11/11 17:50:37 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "libft.h"
 
-/* size_t	ft_strlen(const char *str)
+void	ft_putnbr_fd(int n, int fd)
 {
-	size_t	i;
-
-	i = 0;
-	if(!str)
-		ft_error(0, __FILE__);
-	while(str)
-		i++;
-	return (i);
-} */
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
+	if (n == -2147483648)
+		ft_putstr_fd("-2147483648", fd);
+	else if (n < 0)
 	{
-		while (*s)
-		{
-			ft_putchar_fd(*s++, fd);
-		}
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(-n, fd);
 	}
+	else if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+		ft_putchar_fd(n + '0', fd);
 }
 
-void	ft_putchar(char c)
+/* int	main(void)
 {
-	write(1, &c, 1);
-}
+	ft_putnbr_fd(4, 1);
 
-void	ft_putstr(char *s)
-{
-	if (s)
-		while (*s)
-			ft_putchar(*s++);
-}
+	return (0);
+} */

@@ -1,53 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.c                                              :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 11:08:42 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 14:02:22 by dimarque         ###   ########.fr       */
+/*   Created: 2022/10/31 14:59:38 by dimarque          #+#    #+#             */
+/*   Updated: 2022/11/04 17:26:19 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "libft.h"
 
-/* size_t	ft_strlen(const char *str)
+char	*ft_strrchr(const char *s, int c)
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	if(!str)
-		ft_error(0, __FILE__);
-	while(str)
-		i++;
-	return (i);
-} */
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
+	i = ft_strlen(s) + 1;
+	if (!c)
+		return ((char *)s + (i - 1));
+	while (--i >= 0)
 	{
-		while (*s)
+		if (*(s + i) == (char)c)
 		{
-			ft_putchar_fd(*s++, fd);
+			return ((char *)s + i);
 		}
 	}
+	return (NULL);
 }
 
-void	ft_putchar(char c)
+/* int main()
 {
-	write(1, &c, 1);
-}
 
-void	ft_putstr(char *s)
-{
-	if (s)
-		while (*s)
-			ft_putchar(*s++);
-}
+	char *str;
+	str = "https.//mdinis.pt";
+	char *str2 = "bounjour";
+
+	printf("%s", ft_strrchr(str, '.'));
+	printf("\n");
+	printf("%s", ft_strrchr(str2, 'j'));
+	return 0;
+} */

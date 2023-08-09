@@ -1,53 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.c                                              :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 11:08:42 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 14:02:22 by dimarque         ###   ########.fr       */
+/*   Created: 2022/11/11 17:28:36 by dimarque          #+#    #+#             */
+/*   Updated: 2022/11/18 16:27:44 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
-
-/* size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if(!str)
-		ft_error(0, __FILE__);
-	while(str)
-		i++;
-	return (i);
-} */
+#include "libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+/* int	main(void)
 {
-	if (s)
-	{
-		while (*s)
-		{
-			ft_putchar_fd(*s++, fd);
-		}
-	}
-}
+	ft_putchar_fd('d', 1);
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *s)
-{
-	if (s)
-		while (*s)
-			ft_putchar(*s++);
-}
+	return (0);
+} */

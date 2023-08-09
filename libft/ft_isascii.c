@@ -1,53 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.c                                              :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 11:08:42 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 14:02:22 by dimarque         ###   ########.fr       */
+/*   Created: 2022/10/28 16:06:51 by dimarque          #+#    #+#             */
+/*   Updated: 2022/10/28 18:42:12 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "libft.h"
 
-/* size_t	ft_strlen(const char *str)
+int	ft_isascii(int c)
 {
-	size_t	i;
-
-	i = 0;
-	if(!str)
-		ft_error(0, __FILE__);
-	while(str)
-		i++;
-	return (i);
-} */
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
+	if (c >= 0 && c <= 127)
 	{
-		while (*s)
-		{
-			ft_putchar_fd(*s++, fd);
-		}
+		return (1);
+	}
+	else
+	{
+		return (0);
 	}
 }
 
-void	ft_putchar(char c)
+/* int main()
 {
-	write(1, &c, 1);
-}
 
-void	ft_putstr(char *s)
-{
-	if (s)
-		while (*s)
-			ft_putchar(*s++);
-}
+	unsigned char res;
+
+	res = ft_isascii('A');
+	printf("%d", res);
+
+	return 0;
+} */

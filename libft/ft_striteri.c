@@ -1,53 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.c                                              :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 11:08:42 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 14:02:22 by dimarque         ###   ########.fr       */
+/*   Created: 2022/11/18 15:46:52 by dimarque          #+#    #+#             */
+/*   Updated: 2022/11/18 16:21:45 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header.h"
+#include "libft.h"
 
-/* size_t	ft_strlen(const char *str)
+void	ft_striteri(char *str, void (*f)(unsigned int, char *))
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if(!str)
-		ft_error(0, __FILE__);
-	while(str)
-		i++;
-	return (i);
-} */
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
+	while (str[i] != '\0')
 	{
-		while (*s)
-		{
-			ft_putchar_fd(*s++, fd);
-		}
+		f(i, &str[i]);
+		i++;
 	}
 }
 
-void	ft_putchar(char c)
+/* char	f(unsigned int i, char c)
 {
-	write(1, &c, 1);
+	i++;
+	c = 'D';
+	return (c);
 }
 
-void	ft_putstr(char *s)
+int	main(void)
 {
-	if (s)
-		while (*s)
-			ft_putchar(*s++);
-}
+	char *str = "leite-teste-ola";
+	ft_striteri(str, f);
+	return (0);
+} */
