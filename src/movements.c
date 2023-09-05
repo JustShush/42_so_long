@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:45:36 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/08 16:17:07 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:33:07 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	move_p(t_game *game, int x, int y)
 	game->ploc_x += x;
 	game->ploc_y += y;
 	game->moves++;
-	printf("x: %d, y: %d, moves: %d\n", game->ploc_x, game->ploc_y, game->moves);
-	mlx_put_image_to_window(game->mlx, game->wdw, game->img.zeze, \
-	(game->ploc_x * 64), (game->ploc_y * 64));
+	ft_printf("x: %d, y: %d, moves: %d\n", game->ploc_x, game->ploc_y, game->moves);
 }
 
 // check the direction the player wants to go

@@ -6,31 +6,45 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:44:02 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/08 11:50:04 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:26:49 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
+void	end(t_game *game)
+{
+	if (game->food == 0)
+	{
+		if (game->i == game->ploc_y && game->j == game->ploc_x)
+			close_game(game);
+	}
+}
+
 int	other_half(t_game *game)
 {
 	if (game->matriz[game->i][game->j] == 'C')
 	{
+		if (game->i == game->ploc_y && game->j == game->ploc_x)
+		{
+			mlx_put_image_to_window(game->mlx, game->wdw, game->img.chao, \
+				(game->j * 64), (game->i * 64));
+			game->matriz[game->i][game->j] = '0';
+			game->food--;
+		}
 		mlx_put_image_to_window(game->mlx, game->wdw, game->img.pastel, \
 		(game->j * 64), (game->i * 64));
-		return (1);
 	}
-	if (game->matriz[game->i][game->j] == 'E')
+	else if (game->matriz[game->i][game->j] == 'E')
 	{
+		end(game);
 		mlx_put_image_to_window(game->mlx, game->wdw, game->img.barco, \
 		(game->j * 64), (game->i * 64));
-		return (1);
 	}
 	else
 	{
 		mlx_put_image_to_window(game->mlx, game->wdw, game->img.chao, \
 		(game->j * 64), (game->i * 64));
-		return (1);
 	}
 	return (0);
 }
@@ -45,7 +59,7 @@ int	print_img(t_game *game)
 	}
 	if (game->matriz[game->i][game->j] == 'P')
 	{
-		mlx_put_image_to_window(game->mlx, game->wdw, game->img.zeze, \
+		mlx_put_image_to_window(game->mlx, game->wdw, game->img.chao, \
 		(game->j * 64), (game->i * 64));
 		return (1);
 	}
@@ -54,22 +68,6 @@ int	print_img(t_game *game)
 		if (other_half(game) != 1)
 			return (0);
 		return (1);
-	}
-	return (0);
-}
-
-int	render(t_game *game)
-{
-	game->i = 0;
-	while (game->i < game->height)
-	{
-		game->j = 0;
-		while (game->j < game->width)
-		{
-			print_img(game);
-			game->j++;
-		}
-		game->i++;
 	}
 	return (0);
 }

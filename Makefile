@@ -3,7 +3,7 @@
 NAME = so_long
 
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 # -fsanitize=address
 
@@ -12,6 +12,7 @@ SRC =	main.c	\
 		lib.c	\
 		lib1.c	\
 		map_check.c	\
+		map_vfy.c	\
 		movements.c	\
 		wdw.c	\
 		utils.c	\

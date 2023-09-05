@@ -6,31 +6,28 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 10:59:13 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 13:28:13 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:28:35 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-void	ft_error(int op, char *arg)
+void	ft_error(int op, char *arg, t_game *game)
 {
-	if(op == 0 && arg == NULL)
+	if (op == 0 && arg == NULL)
 		perror("\033[31mError\033[0m");
-	if(op == 1) {
+	if (op == 1)
+	{
 		perror("\033[31mProgram has the wrong number of args");
 		ft_putstr_fd("\033[0m", 2);
 	}
-	if(op == 3)
+	if (op == 3)
 		ft_putstr("\033[31mERROR\033[0m Invalid map name.");
 	if (op == 4)
 		ft_printf("\033[31mERROR\033[0m: %s", arg);
+	close_game(game);
 	exit(1);
 }
-	/* if(op == 2 && file != NULL) {
-		perror("\033[31mError in one");
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd("\033[0m", 2);
-	} */
 
 // initialize the vars
 void	vars_init(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 13:10:25 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/08 12:41:44 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:56:20 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	open_wdw(t_game *game)
 	game->mlx = mlx_init();
 	if (!(game->mlx))
 		return (0);
-	game->wdw = mlx_new_window(game->mlx, (game->width * 64), (game->height * 64), "so_long!");
+	game->wdw = mlx_new_window(game->mlx, (game->width * 64), \
+	(game->height * 64), "so_long!");
 	if (!(game->wdw))
 	{
 		free (game->mlx);
@@ -31,6 +32,10 @@ int	open_wdw(t_game *game)
 void	close_game(t_game *game)
 {
 	destroy_images(game);
+	mlx_clear_window(game->mlx, game->wdw);
 	mlx_destroy_window(game->mlx, game->wdw);
+	mlx_destroy_display(game->mlx);
+	free_matriz(game);
+	free(game->mlx);
 	exit(0);
 }

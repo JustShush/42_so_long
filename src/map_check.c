@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 13:07:31 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 16:35:39 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:54:01 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	fd_map(char *map)
 {
-	return(open(map, O_RDONLY));
+	return (open(map, O_RDONLY));
 }
 
 void	pec_ifs(t_game *game)
@@ -52,29 +52,26 @@ int	check_pec(t_game *game)
 		game->i++;
 	}
 	if (game->player != 1 || game->food == 0 || game->exit != 1)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 // get map height and width (each block is 64 pixels)
 int	get_map(t_game *game)
 {
 	char	buf;
-	int fd;
+	int		fd;
 
 	fd = fd_map(game->path);
-	if (!game->path)
-		ft_error(3, __FILE__);
 	buf = '\0';
 	while (read(fd, &buf, 1))
 		if (buf == '\n')
 			game->height++;
 	game->height++;
 	close(fd);
-	printf("game->height: %d\n", game->height);
 	game->matriz = malloc(sizeof(char *) * (game->height));
 	if (!game->matriz)
-		ft_error(0, __FILE__);
+		ft_error(0, __FILE__, game);
 	game->i = 0;
 	fd = fd_map(game->path);
 	while (game->i < game->height)
@@ -84,9 +81,5 @@ int	get_map(t_game *game)
 	}
 	close(fd);
 	game->width = (ft_strlen(game->matriz[0]) - 1);
-	if (check_pec(game))
-	{
-		return(1);
-	}
 	return (0);
 }

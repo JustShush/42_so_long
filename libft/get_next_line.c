@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:15:41 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/08 15:12:03 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:58:35 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_next_line(int fd)
 				j = 0;
 			buffer[i++] = 0;
 		}
-		if (line[ft_strlen(line) - 1] == '\n')
+		if (line[ft_strlen_gnl(line) - 1] == '\n')
 			break ;
 	}
 	return (line);

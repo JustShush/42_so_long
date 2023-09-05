@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:03:54 by dimarque          #+#    #+#             */
-/*   Updated: 2023/08/09 16:34:26 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:28:29 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_vars {
 
 // in img.c
 
-int		render(t_game *game);
+int		print_img(t_game *game);
 void	open_images(t_game *game);
 void	destroy_images(t_game *game);
 // ----------------------------
@@ -76,23 +76,28 @@ void	ft_putstr(char *s);
 
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strcpy(char *dest, char *src);
-// ----------------------------
 
 void	free_matriz(t_game *game);
 
 // in map_check.c
 
+int		check_pec(t_game *game);
 int		get_map(t_game *game);
+// ----------------------------
+
+// in map_vfy.c
+
+void	map_vfy(t_game *game);
 // ----------------------------
 
 // in movements.c
 
-int	p_movement(int key, t_game *game);
+int		p_movement(int key, t_game *game);
 // ----------------------------
 
 // in utils.c
 
-void	ft_error(int op, char *file);
+void	ft_error(int op, char *file, t_game *game);
 void	vars_init(t_game *game);
 // ----------------------------
 
