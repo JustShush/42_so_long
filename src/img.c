@@ -6,24 +6,15 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:44:02 by dimarque          #+#    #+#             */
-/*   Updated: 2023/09/05 17:26:49 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:18:47 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-void	end(t_game *game)
+void	end(t_game *game, int x)
 {
-	if (game->food == 0)
-	{
-		if (game->i == game->ploc_y && game->j == game->ploc_x)
-			close_game(game);
-	}
-}
-
-int	other_half(t_game *game)
-{
-	if (game->matriz[game->i][game->j] == 'C')
+	if (x == 0)
 	{
 		if (game->i == game->ploc_y && game->j == game->ploc_x)
 		{
@@ -32,12 +23,28 @@ int	other_half(t_game *game)
 			game->matriz[game->i][game->j] = '0';
 			game->food--;
 		}
+	}
+	if (x == 1)
+	{
+		if (game->food == 0)
+		{
+			if (game->i == game->ploc_y && game->j == game->ploc_x)
+				close_game(game);
+		}
+	}
+}
+
+int	other_half(t_game *game)
+{
+	if (game->matriz[game->i][game->j] == 'c')
+	{
+		end(game, 0);
 		mlx_put_image_to_window(game->mlx, game->wdw, game->img.pastel, \
 		(game->j * 64), (game->i * 64));
 	}
-	else if (game->matriz[game->i][game->j] == 'E')
+	else if (game->matriz[game->i][game->j] == 'e')
 	{
-		end(game);
+		end(game, 1);
 		mlx_put_image_to_window(game->mlx, game->wdw, game->img.barco, \
 		(game->j * 64), (game->i * 64));
 	}
@@ -57,7 +64,7 @@ int	print_img(t_game *game)
 		(game->j * 64), (game->i * 64));
 		return (1);
 	}
-	if (game->matriz[game->i][game->j] == 'P')
+	else if (game->matriz[game->i][game->j] == 'p')
 	{
 		mlx_put_image_to_window(game->mlx, game->wdw, game->img.chao, \
 		(game->j * 64), (game->i * 64));

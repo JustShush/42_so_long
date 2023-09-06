@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 13:07:31 by dimarque          #+#    #+#             */
-/*   Updated: 2023/09/05 15:54:01 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:01:37 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	check_pec(t_game *game)
 		game->j = 0;
 		while (game->j < game->width)
 		{
+			if (!(ft_strchr("01CEP", game->matriz[game->i][game->j])))
+				return (1);
 			pec_ifs(game);
 			game->j++;
 		}

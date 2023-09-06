@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 10:59:19 by dimarque          #+#    #+#             */
-/*   Updated: 2023/09/05 17:27:36 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:01:04 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ int	main(int argc, char *argv[])
 	game.path = vfy_path(argv[1]);
 	if (!game.path)
 		ft_error(3, __FILE__, &game);
-	game.mlx = mlx_init();
 	vars_init(&game);
-	open_images(&game);
 	if (get_map(&game))
 		ft_error(0, __FILE__, &game);
 	map_vfy(&game);
+	game.mlx = mlx_init();
+	open_images(&game);
 	if (open_wdw(&game) != 1)
-		ft_error(0, __FILE__, &game);
+		ft_error(2, __FILE__, &game);
 	mlx_hook(game.wdw, 2, 1L << 0, p_movement, &game);
 	mlx_loop_hook(game.mlx, render, &game);
 	mlx_hook(game.wdw, 17, 0, &close_x, &game);

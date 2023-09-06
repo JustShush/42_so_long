@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:03:54 by dimarque          #+#    #+#             */
-/*   Updated: 2023/09/05 17:28:29 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:22:57 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ typedef struct s_vars {
 	t_image	img;
 }	t_game;
 
+typedef struct s_floodfill
+{
+	char	**map;
+	int		collectibles;
+	int		exits;
+}			t_floodfill;
+
 // in img.c
 
 int		print_img(t_game *game);
@@ -87,7 +94,11 @@ int		get_map(t_game *game);
 
 // in map_vfy.c
 
-void	map_vfy(t_game *game);
+void	flood_fill(t_floodfill *floodfill, int x, int y, t_game *game);
+int		ft_flood(t_game *game);
+int		check_walls(t_game *game);
+int		check_rectangular(t_game *game);
+int		check_fl(t_game *game);
 // ----------------------------
 
 // in movements.c
@@ -99,6 +110,8 @@ int		p_movement(int key, t_game *game);
 
 void	ft_error(int op, char *file, t_game *game);
 void	vars_init(t_game *game);
+void	free_map(t_floodfill *floodfill, t_game *game);
+void	map_vfy(t_game *game);
 // ----------------------------
 
 // in wdw.c
