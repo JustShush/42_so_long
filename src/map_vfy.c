@@ -26,7 +26,6 @@ void	flood_fill(t_floodfill *floodfill, int x, int y, t_game *game)
 	if (game->matriz[y][x] == 'C')
 	{
 		game->matriz[y][x] = 'c';
-		printf("game:%c\n", game->matriz[y][x]);
 		floodfill->collectibles--;
 	}
 	if (game->matriz[y][x] == '0')
