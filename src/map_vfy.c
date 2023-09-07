@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 15:50:41 by dimarque          #+#    #+#             */
-/*   Updated: 2023/09/06 16:21:03 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:05:33 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	flood_fill(t_floodfill *floodfill, int x, int y, t_game *game)
 {
-	if (game->matriz[y][x] == '1' || game->matriz[y][x] == 'F')
+	if (game->matriz[y][x] == '1' || game->matriz[y][x] == 'F' || \
+		game->matriz[y][x] == 'c')
 		return ;
 	if (game->matriz[y][x] == 'E')
 	{
