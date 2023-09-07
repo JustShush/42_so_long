@@ -34,7 +34,7 @@ cd 42_so_long && make
 
 ### all in one command
 ```sh
-git clone https://github.com/42Paris/minilibx-linux.git;mv inilibx-linux mlx_linux;cd mlx_linux && make;cd .. && git clone https://github.com/JustShush/42_so_long.git;cd 42_so_long && make
+git clone https://github.com/42Paris/minilibx-linux.git ;mv minilibx-linux mlx_linux ;cd mlx_linux && make ;cd .. ; git clone https://github.com/JustShush/42_so_long.git ;cd 42_so_long && make
 ```
 
 ## 🎮 Running
