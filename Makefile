@@ -124,6 +124,9 @@ fclean: clean
 	@/bin/rm -rf $(NAME) ${OBJ_DIR} $(LIBFT)
 	$(MSG3)
 
+val:
+	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./so_long maps/map1.ber
+
 map1:
 	@./so_long ./maps/map1.ber
 map2:

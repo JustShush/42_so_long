@@ -6,7 +6,7 @@
 /*   By: dimarque <dimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 13:10:25 by dimarque          #+#    #+#             */
-/*   Updated: 2023/09/05 15:56:20 by dimarque         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:51:44 by dimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	open_wdw(t_game *game)
 {
-	game->mlx = mlx_init();
 	if (!(game->mlx))
 		return (0);
 	game->wdw = mlx_new_window(game->mlx, (game->width * 64), \
